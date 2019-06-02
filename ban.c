@@ -37,6 +37,7 @@ int main(int argc, char *argv[]) {
     bool inFunc = false;
     int oldEip = 0;
     while (eip < len) {
+        char *currentstatemnet = getIndex(statements, eip);
         parse(getIndex(statements, eip), varKeys, varData, funcNames, funcEIP, virtStack, &eip, &oldEip, &inFunc);
         ++eip;
         if (!inFunc) {

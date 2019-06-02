@@ -95,12 +95,12 @@ char *boolOrVar(char *value, struct Node *keyTable, struct Node *dataTable, stru
 
 char *logicParse(char *string, struct Node *keyTable, struct Node *dataTable, struct Node *virtStack, int *eip) {
     struct Node *logicStatement = split(string, " ");
-    char *opcode = getIndex(logicStatement, 0);
-    if (!strcmp(opcode, "+")) {
+    char *opcode = string[0];
+    if (opcode == '+') {
         return or(boolOrVar(getIndex(logicStatement, 1), keyTable, dataTable, virtStack, eip), boolOrVar(getIndex(logicStatement, 2), keyTable, dataTable, virtStack, eip));
-    } else if (!strcmp(opcode,"*")) {
+    } else if (opcode == '*') {
         return and(boolOrVar(getIndex(logicStatement, 1), keyTable, dataTable, virtStack, eip), boolOrVar(getIndex(logicStatement, 2), keyTable, dataTable, virtStack, eip));
-    } else if (!strcmp(opcode, "!")) {
+    } else if (opcode =='!') {
         return not(boolOrVar(getIndex(logicStatement, 1), keyTable, dataTable, virtStack, eip));
     }
 }
@@ -130,6 +130,9 @@ char *parenthesisParse(char *string, struct Node *keyTable, struct Node *dataTab
 }
 void parse(char *statement, struct Node *keyTable, struct Node *dataTable,  struct Node *funcNames, struct Node *funcEIP, struct Node *virtStack, int *eip, int *oldEip, bool *inFunc) {
     if (!*inFunc && statement[0] == '\t' || !*inFunc && !strncmp(statement, "    ", 4)) return;
+    if (statement[0] == '\t') {
+        statement = replaceWord(statement, "\t", "");
+    }
     struct Node *lineSplit = split(statement, " ");
     char *opcode = getIndex(lineSplit, 0);
     if (!strcmp(opcode, "define")) {
