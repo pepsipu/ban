@@ -1,5 +1,5 @@
 # B A N
-## Boolean Algebra Notation (PRE-ALPHA) 0.0.1
+## Boolean Algebra Notation (PRE-ALPHA) 0.0.3
 ---
 Boolean Algebra Notation is a programming language that allows the execution of Boolean expressions.
 ### Compile
